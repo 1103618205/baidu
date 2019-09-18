@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="刘玉琦的百度练习，搜索我">
+    <title>Tabbed info box</title>
+    <style>
+        body,html{
+            font-size: 62.5%;
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+        a{
+            text-decoration: none;
+        }
+        ul{
+            margin: 0px;
+            padding: 0px;
+        }
+        ul li{
+            list-style: none;
+        }
+        main{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            flex-wrap: wrap;
+        }
+        .header_center ul li{
+
+            display: inline-block;
+        }
+        header{
+            height: 4rem;
+            background: #121;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .header_center{
+
+            height: 2rem;
+            width: 76rem;
+        }
+        .header_center img{
+            float: left;
+            height: 2rem;
+
+        }
+        .header_center ul{
+            float: right;
+        }
+        .header_center a{
+            color: #999999;
+        }
+        .banner{
+            width: 100%;
+            position: relative;
+            height: 18rem;
+            background: aquamarine;
+        }
+        .banner ul{
+            position: absolute;
+            right: 20rem;
+            vertical-align: bottom;
+            bottom: 3rem;
+        }
+        .banner ul li{
+            margin-left: .3rem;
+            vertical-align: bottom;
+            display: inline-block;
+            bottom: 0;
+        }
+        .banner li a{
+            vertical-align: bottom;
+            display: block;
+            line-height: 1.8rem;
+            height: 1.8rem;
+            width: 1.5rem;
+            text-align: center;
+            background-color: rgba(255,255,255,.5);
+            transition: all 0.5s;
+        }
+        .banner_active{
+            background-color: rgba(255,255,255,0.9) !important;
+            padding-top: .5rem;
+        }
+        .nav_content{
+            width: 100%;
+            height: 3.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: flex-end;
+
+        }
+        .nav_btns{
+            display: flex;
+            width: 76rem;
+            height: 3rem;
+            margin-bottom: -.1rem;
+        }
+        .btn{
+            height: 3rem;
+            width: 6rem;
+            background-color: rgba(0,0,0,.1);
+            border: 1px solid rgba(0,0,0,.1);
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+
+
+        }
+        .btn:hover{
+            cursor: pointer;
+        }
+        .btn_active{
+            background-color: white !important;
+            border-bottom: 0px;
+        }
+        .content{
+            display: flex;
+            flex-wrap: wrap;
+            width: 76rem;
+        }
+        .content div{
+            box-sizing: border-box;
+            text-align: center;
+            line-height: 7rem;
+            height: 7rem;
+            margin: .1rem;
+            border: 1px solid rgba(0,0,0,.1);
+        }
+        .div1{
+            width: 33%;
+        }
+        .div2{
+            width: 24.7%;
+        }
+        footer{
+            padding-top: .5rem;
+            position: absolute;
+            bottom: 0;
+            background-color: rgb(102,102,102);
+            width: 100%;
+            height: 5rem;
+            text-align: center;
+            color: rgba(255,255,255,.6);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header_center">
+        <img src="baidu.png" alt="无法显示图片，请更换浏览器" >
+        <ul>
+            <li><a href="#">导航1</a></li>
+            <li><a href="#">导航2</a></li>
+            <li><a href="#">导航3</a></li>
+        </ul>
+    </div>
+</header>
+<main>
+    <div class="banner">
+        <ul>
+            <li><a class="banner_active" href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+        </ul>
+    </div>
+    <section class="nav_content">
+        <div class="nav_btns">
+            <button class="btn btn_active">
+                home
+            </button>
+            <button class="btn">
+                nav
+            </button>
+            <button class="btn">
+                content
+            </button>
+        </div>
+    </section>
+    <article class="content">
+        <div class="div1">
+            column1
+        </div>
+        <div class="div1">
+            column1
+        </div>
+        <div class="div1">
+            column1
+        </div>
+        <div class="div2">
+            column2
+        </div>
+        <div class="div2">
+            column2
+        </div>
+        <div class="div2">
+            column2
+        </div>
+        <div class="div2">
+            column2
+        </div>
+        <div class="div1">
+            column1
+        </div>
+        <div class="div1">
+            column1
+        </div>
+        <div class="div1">
+            column1
+        </div>
+    </article>
+</main>
+<footer>
+    @我的2019百度前端技术学院练习
+</footer>
+<script>
+    var banner_alist=document.querySelectorAll('.banner li a')
+    for (let i=0;i<banner_alist.length;i++){
+        banner_alist[i].onclick=function () {
+            for(let j=0;j<banner_alist.length;j++){
+                banner_alist[j].classList.remove('banner_active')
+            }
+            banner_alist[i].classList.add('banner_active')
+        }
+    }
+</script>
+</body>
+</html>
