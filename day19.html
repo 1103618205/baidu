@@ -37,14 +37,15 @@
 
     function getAllListItem() {
         // 返回页面中所有li标签
-        return document.getElementsByTagName('li')
-
+        // return document.getElementsByTagName('li')
+        return document.querySelectorAll('li')
     }
 
     function findAllHtmlSpanInOneSection(sectionId) {
         // 返回某个section下所有span中内容为HTML的span标签
         var a=[]
-        var list=document.getElementById(sectionId).getElementsByTagName('span')
+        // var list=document.getElementById(sectionId).getElementsByTagName('span')
+        let list=document.querySelectorAll('#'+sectionId+' span')
         for(let i=0;i<list.length;i++){
             if(/^HTML$/.test(list[i].textContent))
             {
@@ -70,7 +71,8 @@
         // }
         // return a
         /*方案2*/
-        let span_list=document.getElementById(sectionId).getElementsByTagName('span')
+        // let span_list=document.getElementById(sectionId).getElementsByTagName('span')
+        let span_list=document.querySelectorAll('#'+sectionId+' span')
         for(let i=0;i<span_list.length;i++){
             if(reg.test(span_list[i].textContent)&&span_list[i].parentNode.tagName=="LI"){
                a.push(span_list[i])
@@ -82,7 +84,8 @@
     function getActiveLinkContent(sectionId) {
         // 返回某个section下，class为active的链接中包含的文字内容
         let str=''
-        let a_list=document.getElementById(sectionId).getElementsByTagName("a")
+        // let a_list=document.getElementById(sectionId).getElementsByTagName("a")
+        let a_list=document.querySelectorAll('#'+sectionId+' a')
         for(let i=0;i<a_list.length;i++)
         {
             if(a_list[i].className.indexOf('active'))
