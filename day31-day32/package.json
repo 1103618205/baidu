@@ -479,7 +479,7 @@
     "run-queue": "^1.0.3",
     "schema-utils": "^1.0.0",
     "semver": "^5.7.1",
-    "serialize-javascript": "^1.9.1",
+    "serialize-javascript": "^4.0.0",
     "set-value": "^2.0.1",
     "setimmediate": "^1.0.5",
     "readdirp": "^2.2.1",
