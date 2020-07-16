@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*es5代码实现*/
+    // let id = 0
+    // function Restaurant(attr) {
+    //     this.cash = attr.cash
+    //     this.seats = attr.seats
+    //     this.staff = attr.staff
+    // }
+    //
+    // Restaurant.prototype.hire = function () {
+    //     this.staff.push(arguments[0])
+    // }
+    // Restaurant.prototype.fire = function () {
+    //     this.staff = this.staff.filter(item => {
+    //         return item !== arguments[0]
+    //     })
+    // }
+    //
+    // function clerk(name, wage) {
+    //     this.id = id++
+    //     this.name = name
+    //     this.wage = wage
+    // }
+    //
+    // clerk.prototype.workOver = function () {
+    //     if(this instanceof waiter){
+    //         if(Array.isArray(arguments[0])){
+    //             saveOrder()
+    //         }else{
+    //             serving()
+    //         }
+    //     }else{
+    //         cookDish()
+    //     }
+    //     function cookDish() {
+    //         console.log("做菜")
+    //     }
+    //
+    //     function saveOrder() {
+    //         console.log("记录顾客点餐")
+    //     }
+    //
+    //     function serving() {
+    //         console.log("上菜")
+    //     }
+    // }
+    //
+    // function waiter(name, wage) {
+    //     clerk.call(this, name, wage)
+    // }
+    //
+    // waiter.prototype = new clerk()
+    //
+    // function Cook(name, wage) {
+    //     clerk.call(this, name, wage)
+    // }
+    //
+    // Cook.prototype = new clerk()
+    // function customer() {
+    //
+    // }
+    // customer.prototype.orderDish=function () {
+    //     console.log('点餐')
+    // }
+    // customer.prototype.eat=function () {
+    //     console.log('吃')
+    // }
+    // function food(name, cost, price) {
+    //     this.name=name
+    //     this.cost=cost
+    //     this.price=price
+    // }
+    /*es6代码实现*/
+    let id = 0
+
+    class Restaurant {
+        constructor(attr) {
+            this.cash = attr.cash
+            this.seats = attr.seats
+            this.staff = attr.staff
+        }
+
+        hire(some) {
+            this.staff.push(some)
+        }
+
+        fire(some) {
+            this.staff = this.staff.filter(item => {
+                return item !== some
+            })
+        }
+    }
+
+    class clerk {
+        constructor(name, wage) {
+            this.id = id++
+            this.name = name
+            this.wage = wage
+        }
+
+        workeOver() {
+            if (this instanceof waiter) {
+                if (Array.isArray(arguments[0])) {
+                    saveOrder()
+                } else {
+                    serving()
+                }
+            } else {
+                cookDish()
+            }
+
+            function cookDish() {
+                console.log("做菜")
+            }
+
+            function saveOrder() {
+                console.log("记录顾客点餐")
+            }
+
+            function serving() {
+                console.log("上菜")
+            }
+        }
+    }
+
+    class waiter extends clerk {
+    }
+
+    class Cook extends clerk {
+    }
+
+    class customer {
+        eat() {
+            console.log('吃')
+        }
+
+        oreder() {
+            console.log('点餐')
+        }
+    }
+
+    class food {
+        constructor(name, cost, price) {
+            this.name = name
+            this.cost = cost
+            this.price = price
+        }
+    }
+
+    /*测试用例*/
+    var ifeRestaurant = new Restaurant({
+        cash: 1000000,
+        seats: 20,
+        staff: []
+    });
+
+    var newCook = new Cook("Tony", 10000);
+    ifeRestaurant.hire(newCook);
+
+    console.log(ifeRestaurant.staff);
+
+    ifeRestaurant.fire(newCook);
+    console.log(ifeRestaurant.staff);
+</script>
+</body>
+</html>

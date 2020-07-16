@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let id = 0
+
+    function Restaurant(attr) {
+        this.cash = attr.cash
+        this.seats = attr.seats
+        this.staff = attr.staff
+        this.queue = []
+        this.currcustomer = null
+        this.dishMenu = []
+        this.cooker=[]
+        this.waiter=[]
+    }
+
+    Restaurant.prototype = (function () {
+        let hascook
+        let hasclerk
+        let hascustomer
+        return {
+            constructor: Restaurant,
+            hire: function () {
+                if (arguments[0] instanceof Cook) {
+                    if (!hascook) {
+                        hascook = arguments[0]
+                        arguments[0].MyRestaurant=this
+                        this.cooker.push(arguments[0])
+                        this.staff.push(arguments[0])
+                    } else {
+                        console.log("已经有厨师了")
+                    }
+                    return hascook
+                }
+                if (arguments[0] instanceof waiter) {
+                    if (!hasclerk) {
+                        hasclerk = arguments[0]
+                        arguments[0].MyRestaurant=this
+                        this.waiter.push(arguments[0])
+                        this.staff.push(arguments[0])
+                    } else {
+                        console.log("已经有服务员了")
+                    }
+                    return hasclerk
+                }
+
+            },
+            fire: function () {
+                this.staff = this.staff.filter(item => {
+                    if (item === arguments[0]) {
+                        if (item instanceof Cook) {
+                            this.cooker.shift()
+                            hascook = null
+                        }
+                        if (item instanceof waiter) {
+                            this.waiter.shift()
+                            hasclerk = null
+                        }
+                    }
+                    return item !== arguments[0]
+                })
+            }
+        }
+    })()
+    // Restaurant.prototype.fire = function () {
+    //     this.staff = this.staff.filter(item => {
+    //         return item !== arguments[0]
+    //     })
+    // }
+
+    function clerk(name, wage) {
+        this.id = id++
+        this.name = name
+        this.wage = wage
+        this.MyRestaurant=null
+    }
+
+    clerk.prototype.workOver = function () {
+        let that=this
+        if (that instanceof waiter) {
+            if (Array.isArray(arguments[0])) {
+                saveOrder(arguments[0])
+            } else {
+                serving(arguments[0])
+            }
+        } else {
+            cookDish(arguments[0])
+        }
+
+        function cookDish(arr) {
+
+            console.log("做菜:")
+            console.log(arr)
+            that.MyRestaurant.waiter[0].workOver(arr)
+
+        }
+
+        function saveOrder(arr) {
+            console.log("记录顾客点餐")
+            that.MyRestaurant.cooker[0].workOver(arr[0]["name"])
+            that.MyRestaurant.currcustomer.eat()
+        }
+
+        function serving(arr) {
+            console.log("上菜:"+arr)
+        }
+    }
+
+    function waiter(name, wage) {
+        clerk.call(this, name, wage)
+    }
+
+    waiter.prototype = new clerk()
+
+    function Cook(name, wage) {
+        clerk.call(this, name, wage)
+    }
+
+    Cook.prototype = new clerk()
+
+    function customer() {
+
+    }
+
+    customer.prototype = (function () {
+        let hasRestaurant
+        return {
+            constructor:customer,
+            findhasRestaurant() {
+                if (arguments[0] instanceof Restaurant) {
+                    if (!hasRestaurant) {
+                        hasRestaurant = arguments[0]
+                        if (!hasRestaurant.currcustomer) {
+                            this.sat()
+                        }
+                    }else{
+                        hasRestaurant.queue.push(this)
+                    }
+                } else {
+                    console.log("请选择餐厅")
+                }
+                return hasRestaurant
+            },
+            sat: function () {
+                hasRestaurant.currcustomer = this
+                let foods=this.orderDish()
+                hasRestaurant.waiter[0].workOver([this.orderDish()])
+            },
+            orderDish: function () {
+                if (hasRestaurant.currcustomer === this) {
+                    return hasRestaurant.dishMenu[0]
+                } else {
+                    console.log("请耐心等待马上就到你了")
+                    console.log("请耐心等待马上就到你了")
+                }
+            },
+            eat: function () {
+                console.log('我正在吃')
+                console.log('我吃完了，下一位吧！')
+                if(hasRestaurant.queue.length){
+                    console.log("没有顾客了")
+                }else{
+                    hasRestaurant.currcustomer=null
+
+                }
+
+            }
+
+        }
+    })()
+
+    function food(name, cost, price) {
+        this.name = name
+        this.cost = cost
+        this.price = price
+    }
+
+    let foodarr = []
+    foodarr.push(new food("鱼香肉丝1", 15, 20))
+    foodarr.push(new food("鱼香肉丝2", 15, 20))
+    foodarr.push(new food("鱼香肉丝3", 15, 20))
+
+    let somRestaurant = new Restaurant({
+        cash: 1000000,
+        seats: 1,
+        staff: []
+    })
+    somRestaurant.dishMenu = foodarr
+
+    somRestaurant.hire(new Cook("Tony",1000))
+    somRestaurant.hire(new waiter("waiters",1000))
+    let customer1=new customer()
+    let customer2=new customer()
+    let customer3=new customer()
+    customer1.findhasRestaurant(somRestaurant)
+    customer2.findhasRestaurant(somRestaurant)
+    customer3.findhasRestaurant(somRestaurant)
+</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<svg id="s1">
+</svg>
+<!--<canvas id="canvs" >-->
+<!--</canvas>-->
+<button onclick="start()">
+    x
+</button>
+<script>
+    // let arrs=[120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    // function drawLine(arr) {
+    //     let cans=document.getElementById("canvs")
+    //     let ctx=cans.getContext("2d")
+    //     cans.height=500
+    //     cans.width=600
+    //     let Maxs=Math.max(...arr)
+    //     let copyMaxs=Maxs
+    //     let scalcHeight=490/Maxs
+    //     let marginWith=580/12
+    //     let marginHeight=Maxs/6
+    //     ctx.beginPath()
+    //     ctx.moveTo(10,0)
+    //     ctx.lineTo(10,490)
+    //     ctx.lineTo(580,490)
+    //     ctx.moveTo(0,10)
+    //     ctx.lineTo(10,0)
+    //     ctx.lineTo(20,10)
+    //     ctx.moveTo(570,480)
+    //     ctx.lineTo(580,490)
+    //     ctx.lineTo(570,500)
+    //     ctx.stroke()
+    //     for(let i=0;i<12;i++){
+    //         ctx.fillText(i+1+"月",10+marginWith*i,500)
+    //     }
+    //     ctx.stroke()
+    //     for(let i=1;i<=6;i++){
+    //         console.log(Maxs-copyMaxs)
+    //         ctx.fillText(copyMaxs.toFixed(0)+"元",10,+20+(Maxs-copyMaxs)*scalcHeight)
+    //         copyMaxs-=marginHeight
+    //     }
+    //     ctx.stroke()
+    //     for(let i=0;i<arr.length;i++){
+    //         if(i===0){
+    //             ctx.moveTo(10+i*marginWith,(510-arr[i]*scalcHeight))
+    //         }else{
+    //             ctx.lineTo(10+i*marginWith,(490-arr[i]*scalcHeight)+20)
+    //         }
+    //     }
+    //     ctx.stroke()
+    //     for(let i=0;i<arr.length;i++){
+    //         let a=(Math.random()*255).toFixed(0)
+    //         let b=(Math.random()*255).toFixed(0)
+    //         let c=(Math.random()*255).toFixed(0)
+    //         ctx.fillStyle='rgb('+a+','+b+','+c+')'
+    //         ctx.beginPath()
+    //         ctx.arc(10+i*marginWith,510-arr[i]*scalcHeight,5,0,2*Math.PI)
+    //         ctx.fill()
+    //     }
+    //
+    // }
+    // drawLine(arrs)
+    // let sourceData = [{
+    //     product: "手机",
+    //     region: "华东",
+    //     sale: [120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+    // }, {
+    //     product: "手机",
+    //     region: "华北",
+    //     sale: [80, 70, 90, 110, 130, 145, 150, 160, 170, 185, 190, 200]
+    // }, {
+    //     product: "手机",
+    //     region: "华南",
+    //     sale: [220, 200, 240, 250, 260, 270, 280, 295, 310, 335, 355, 380]
+    // }, {
+    //     product: "笔记本",
+    //     region: "华东",
+    //     sale: [50, 60, 80, 110, 30, 20, 70, 30, 420, 30, 20, 20]
+    // }, {
+    //     product: "笔记本",
+    //     region: "华北",
+    //     sale: [30, 35, 50, 70, 20, 15, 30, 50, 710, 130, 20, 20]
+    // }, {
+    //     product: "笔记本",
+    //     region: "华南",
+    //     sale: [80, 120, 130, 140, 70, 75, 120, 90, 550, 120, 110, 100]
+    // }, {
+    //     product: "智能音箱",
+    //     region: "华东",
+    //     sale: [10, 30, 4, 5, 6, 5, 4, 5, 6, 5, 5, 25]
+    // }, {
+    //     product: "智能音箱",
+    //     region: "华北",
+    //     sale: [15, 50, 15, 15, 12, 11, 11, 12, 12, 14, 12, 40]
+    // }, {
+    //     product: "智能音箱",
+    //     region: "华南",
+    //     sale: [10, 40, 10, 6, 5, 6, 8, 6, 6, 6, 7, 26]
+    // }]
+    let arrs=[120, 100, 140, 160, 180, 185, 190, 210, 230, 245, 255, 270]
+
+
+    function drawSvg(arr) {
+        let svgs=document.getElementById("s1")
+        let drawHeight=520
+        let drawWidth=600
+        svgs.setAttribute("height",drawHeight)
+        svgs.setAttribute("width",drawWidth)
+        let xMargin=drawWidth/12
+        let histogram=xMargin-10
+        let Maxs=Math.max(...arr)
+        let scaleSize=(drawHeight-30)/Maxs
+        let copyMath=Maxs
+        let scalHeight=copyMath/6
+        let shaft=document.createElementNS('http://www.w3.org/2000/svg','path')
+        shaft.setAttribute('d',"M10 10 L10 490 L600 490 M 0 20 L10 10 L20 20 M 590 480 L600 490 L590 500");
+        shaft.setAttribute('fill','none')
+        shaft.setAttribute('stroke','black')
+        shaft.setAttribute('stroke-width','1')
+        svgs.appendChild(shaft)
+        for(let i=0;i<12;i++){
+            let text=document.createElementNS('http://www.w3.org/2000/svg','text')
+            text.textContent=i+1+"月"
+            text.setAttribute("x",10+i*(xMargin))
+            text.setAttribute("y",510)
+            text.fill="black"
+            svgs.appendChild(text)
+        }
+        for(let i=1;i<=6;i++){
+            let text=document.createElementNS('http://www.w3.org/2000/svg','text')
+            text.textContent=copyMath.toFixed(0)+"台"
+            text.setAttribute("x",10)
+            text.setAttribute("y",20+(Maxs-copyMath)*scaleSize)
+            copyMath-=scalHeight
+            svgs.appendChild(text)
+        }
+        for(let i=0;i<arr.length;i++){
+            let react=document.createElementNS('http://www.w3.org/2000/svg','rect')
+            react.setAttribute("width",histogram)
+            react.setAttribute("height",arr[i]*scaleSize)
+            react.setAttribute("x",10+xMargin*i)
+            react.setAttribute("y",drawHeight-30-arr[i]*scaleSize)
+            let a=(Math.random()*255).toFixed(0)
+            let b=(Math.random()*255).toFixed(0)
+            let c=(Math.random()*255).toFixed(0)
+            react.setAttribute("fill",'rgba('+a+','+b+','+c+',0.4)')
+            svgs.appendChild(react)
+        }
+    }
+
+    drawSvg(arrs)
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvs" width="300" height="600" >
+</canvas>
+<script>
+    let cans=document.getElementById("canvs")
+    function start() {
+        let ctx=cans.getContext("2d")
+        ctx.beginPath()
+        ctx.ellipse(150,90,50,80,0,0,2*Math.PI)
+        ctx.stroke()
+        ctx.beginPath()
+        ctx.moveTo(140,10)
+        ctx.quadraticCurveTo(120,10,145,0)
+        ctx.moveTo(150,10)
+        ctx.quadraticCurveTo(130,10,155,0)
+        ctx.moveTo(160,10)
+        ctx.quadraticCurveTo(140,10,165,0)
+        ctx.moveTo(120,60)
+        ctx.lineTo(180,60)
+        ctx.moveTo(150,60)
+        ctx.lineTo(150,110)
+        ctx.lineTo(145,100)
+        ctx.font="25px Arial";
+        ctx.fillText("三",140,40)
+        ctx.font="30px Arial"
+        ctx.fillText("四",135,150)
+        ctx.moveTo(135,80)
+        ctx.arc(130,80,5,0,2*Math.PI)
+        ctx.moveTo(175,80)
+        ctx.arc(170,80,5,0,2*Math.PI)
+        ctx.font="25px Arial"
+        ctx.fillText("3",200,90)
+        ctx.moveTo(175,165)
+        ctx.ellipse(150,270,70,120,0,290*Math.PI/180,250*Math.PI/180)
+        ctx.moveTo(80,270)
+        ctx.lineTo(50,270)
+        ctx.moveTo(220,270)
+        ctx.lineTo(250,270)
+        ctx.moveTo(140,390)
+        ctx.lineTo(130,410)
+        ctx.moveTo(160,390)
+        ctx.lineTo(170,410)
+        ctx.stroke()
+        ctx.translate(100,90)
+        ctx.rotate(180*Math.PI/180)
+        ctx.font="25px Arial"
+        ctx.fillText("3",0,7)
+        ctx.stroke()
+        ctx.restore()
+
+    }
+    start()
+</script>
+</body>
+</html>

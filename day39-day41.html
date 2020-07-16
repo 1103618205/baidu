@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="btns">
+    <button id="a">A</button>
+    <button id="b">B</button>
+    <button id="c">C</button>
+</div>
+<div id="cont"></div>
+</body>
+<script>
+    function parsHash() {
+        let content=location.hash
+        console.log(content)
+        return content
+    }
+    function render(){
+        let text=parsHash()
+        let dom=document.getElementById("cont")
+        dom.innerHTML=text
+    }
+    document.getElementById('btns').addEventListener('click',function (e) {
+        if(e.target.tagName==="BUTTON"){
+            location.hash=e.target.textContent
+        }
+    })
+    render()
+    window.onhashchange=function () {
+        render()
+    }
+
+</script>
+</html>
